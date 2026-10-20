@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trava IVR & Toll-Free Simulator | Button Phone Bus Tracking</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=VT323&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #10B981;
+      --primary-dark: #059669;
+      --bg-dark: #0B1320;
+      --surface: #151F30;
+      --surface-card: #1C283E;
+      --text-main: #F9FAFB;
+      --text-muted: #94A3B8;
+      --phone-body: #232B3A;
+      --phone-border: #334155;
+      --screen-green: #90B080;
+      --screen-green-dark: #2A3824;
+      --screen-green-glow: #A2C490;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+
+    @media (max-width: 900px) {
+      .container {
+        grid-template-columns: 1fr;
+        justify-items: center;
+      }
+    }
+
+    /* Top Branding Header */
+    .page-header {
+      width: 100%;
+      max-width: 1200px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 20px;
+    }
+
+    .logo-badge {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-icon {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);
+    }
+
+    .logo-title {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .logo-sub {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .toll-free-pill {
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 8px 16px;
+      border-radius: 9999px;
+      color: #34D399;
+      font-weight: 700;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10B981;
+      animation: pulse 1.8s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { transform: scale(1.1); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+
+    /* ============================================================
+       NOKIA 3310 / FEATURE PHONE SIMULATOR
+       ============================================================ */
+    .phone-wrapper {
+      background: linear-gradient(180deg, #1F2837 0%, #171E2B 100%);
+      border: 3px solid #334155;
+      border-radius: 44px;
+      padding: 24px 20px;
+      width: 360px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7), inset 0 2px 4px rgba(255, 255, 255, 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .earpiece {
+      width: 60px;
+      height: 6px;
+      background: #0F172A;
+      border-radius: 3px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .brand-text {
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 2.5px;
+      color: #94A3B8;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+
+    /* LCD Screen */
+    .lcd-screen {
+      width: 100%;
+      height: 190px;
+      background: var(--screen-green);
+      border: 4px solid #141B10;
+      border-radius: 12px;
+      padding: 10px 12px;
+      color: var(--screen-green-dark);
+      font-family: 'VT323', monospace;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: inset 0 3px 10px rgba(0, 0, 0, 0.4);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .lcd-screen::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.05),
+        rgba(0, 0, 0, 0.05) 1px,
+        transparent 1px,
+        transparent 2px
+      );
+      pointer-events: none;
+    }
+
+    .lcd-top-bar {
+      display: flex;
+      justify-content: space-between;
+      font-size: 15px;
+      font-weight: bold;
+      border-bottom: 1px dashed var(--screen-green-dark);
+      padding-bottom: 2px;
+    }
+
+    .lcd-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 4px 0;
+    }
+
+    .lcd-status {
+      font-size: 20px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+
+    .lcd-sub {
+      font-size: 17px;
+      line-height: 1.2;
+      max-height: 80px;
+      overflow-y: auto;
+      word-break: break-word;
+    }
+
+    .lcd-bottom-bar {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      border-top: 1px dashed var(--screen-green-dark);
+      padding-top: 2px;
+    }
+
+    /* Call / Action Buttons */
+    .action-row {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 18px 0 14px 0;
+    }
+
+    .call-btn {
+      background: linear-gradient(180deg, #10B981 0%, #059669 100%);
+      color: white;
+      border: 1px solid #34D399;
+      border-radius: 16px;
+      padding: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      transition: transform 0.1s, background 0.2s;
+    }
+
+    .call-btn:active {
+      transform: translateY(2px);
+    }
+
+    .end-btn {
+      background: linear-gradient(180deg, #EF4444 0%, #DC2626 100%);
+      color: white;
+      border: 1px solid #F87171;
+      border-radius: 16px;
+      padding: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      transition: transform 0.1s;
+    }
+
+    .end-btn:active {
+      transform: translateY(2px);
+    }
+
+    /* Keypad Grid */
+    .keypad {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .key-btn {
+      background: linear-gradient(180deg, #2A364B 0%, #1E2738 100%);
+      border: 1px solid #475569;
+      border-radius: 14px;
+      height: 52px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #F8FAFC;
+      box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+      transition: all 0.08s ease;
+      user-select: none;
+    }
+
+    .key-btn:hover {
+      background: #334155;
+    }
+
+    .key-btn:active, .key-btn.pressed {
+      transform: translateY(2px);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+      background: #10B981;
+      color: #0F172A;
+    }
+
+    .key-num {
+      font-size: 19px;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .key-sub {
+      font-size: 9px;
+      letter-spacing: 1px;
+      color: #94A3B8;
+      font-weight: 600;
+      margin-top: 1px;
+    }
+
+    .key-btn:active .key-sub, .key-btn.pressed .key-sub {
+      color: #064E3B;
+    }
+
+    /* ============================================================
+       RIGHT PANEL: LIVE LOGS, HOTSPOTS & TWILIO CONFIG
+       ============================================================ */
+    .right-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+      color: #F1F5F9;
+    }
+
+    /* Live Voice Subtitle Box */
+    .speech-box {
+      background: #0D1624;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 14px;
+      padding: 16px;
+      min-height: 80px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .sound-wave {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      height: 24px;
+    }
+
+    .sound-bar {
+      width: 4px;
+      height: 6px;
+      background: #10B981;
+      border-radius: 2px;
+    }
+
+    .sound-wave.active .sound-bar {
+      animation: wave 1s ease-in-out infinite alternate;
+    }
+
+    .sound-wave.active .sound-bar:nth-child(2) { animation-delay: 0.15s; }
+    .sound-wave.active .sound-bar:nth-child(3) { animation-delay: 0.3s; }
+    .sound-wave.active .sound-bar:nth-child(4) { animation-delay: 0.45s; }
+
+    @keyframes wave {
+      0% { height: 6px; }
+      100% { height: 26px; }
+    }
+
+    .speech-text {
+      font-size: 14px;
+      line-height: 1.5;
+      color: #E2E8F0;
+      font-weight: 500;
+    }
+
+    /* Hotspot Routes Table */
+    .routes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .route-item {
+      background: var(--surface-card);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .route-item:hover {
+      border-color: #10B981;
+      transform: translateY(-1px);
+    }
+
+    .route-item.highlighted {
+      border-color: #10B981;
+      background: rgba(16, 185, 129, 0.15);
+    }
+
+    .route-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .digit-pill {
+      width: 28px;
+      height: 28px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #38BDF8;
+      font-size: 13px;
+    }
+
+    .route-names {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .route-en {
+      font-size: 13px;
+      font-weight: 700;
+      color: #F8FAFC;
+    }
+
+    .route-ta {
+      font-size: 11px;
+      color: #94A3B8;
+    }
+
+    .eta-pill {
+      background: rgba(16, 185, 129, 0.2);
+      color: #34D399;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    /* Twilio Integration Box */
+    .webhook-box {
+      background: #0A0F1A;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      border-radius: 14px;
+      padding: 16px;
+      margin-top: 10px;
+    }
+
+    .webhook-url {
+      font-family: monospace;
+      font-size: 13px;
+      color: #60A5FA;
+      word-break: break-all;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 8px 12px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 10px 0;
+    }
+
+    .copy-btn {
+      background: #2563EB;
+      color: white;
+      border: none;
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .copy-btn:hover { background: #1D4ED8; }
+
+    /* Steps list */
+    .step-list {
+      margin-top: 10px;
+      padding-left: 20px;
+      color: var(--text-muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .step-list li strong {
+      color: #F8FAFC;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="page-header">
+    <div class="logo-badge">
+      <div class="logo-icon">🚌</div>
+      <div>
+        <div class="logo-title">Trava IVR & Toll-Free Simulator</div>
+        <div class="logo-sub">Interactive Voice Response for Non-Internet & Button-Phone Passengers</div>
+      </div>
+    </div>
+    <div class="toll-free-pill">
+      <span class="live-dot"></span>
+      Toll-Free: 1800-TRAVA-BUS (1800-87282-287)
+    </div>
+  </header>
+
+  <div class="container">
+
+    <!-- LEFT: NOKIA 3310 KEYPAD PHONE -->
+    <div style="display: flex; flex-direction: column; align-items: center;">
+      <div class="phone-wrapper">
+        <div class="earpiece"></div>
+        <div class="brand-text">TRAVA · IVR 3310</div>
+
+        <!-- LCD Screen -->
+        <div class="lcd-screen" id="lcdScreen">
+          <div class="lcd-top-bar">
+            <span>📶 BSNL 4G</span>
+            <span id="lcdTime">12:45 PM</span>
+            <span>🔋 100%</span>
+          </div>
+
+          <div class="lcd-content">
+            <div class="lcd-status" id="lcdStatus">READY TO CALL</div>
+            <div class="lcd-sub" id="lcdSub">Press GREEN to dial 1800-TRAVA-BUS</div>
+          </div>
+
+          <div class="lcd-bottom-bar">
+            <span>CALL</span>
+            <span id="lcdActiveDigits">--</span>
+            <span>MENU</span>
+          </div>
+        </div>
+
+        <!-- Call / End Call Buttons -->
+        <div class="action-row">
+          <button class="call-btn" id="btnCall" onclick="startCall()">
+            📞 CALL
+          </button>
+          <button class="end-btn" id="btnEnd" onclick="endCall()">
+            🛑 END
+          </button>
+        </div>
+
+        <!-- 3x4 Number Keypad -->
+        <div class="keypad">
+          <button class="key-btn" onclick="pressKey('1')">
+            <span class="key-num">1</span>
+            <span class="key-sub">TA / GP</span>
+          </button>
+          <button class="key-btn" onclick="pressKey('2')">
+            <span class="key-num">2</span>
+            <span class="key-sub">EN / FUN</span>
+          </button>
+          <button class="key-btn" onclick="pressKey('3')">
+            <span class="key-num">3</span>
+            <span class="key-sub">UKKADAM</span>
+          </button>
+
+          <button class="key-btn" onclick="pressKey('4')">
+            <span class="key-num">4</span>
+            <span class="key-sub">SARAVAN</span>
+          </button>
+          <button class="key-btn" onclick="pressKey('5')">
+            <span class="key-num">5</span>
+            <span class="key-sub">SINGANALLUR</span>
+          </button>
+          <button class="key-btn" onclick="pressKey('6')">
+            <span class="key-num">6</span>
+            <span class="key-sub">TOWN HALL</span>
+          </button>
+
+          <button class="key-btn" onclick="pressKey('7')">
+            <span class="key-num">7</span>
+            <span class="key-sub">LAKSHMI</span>
+          </button>
+          <button class="key-btn" onclick="pressKey('8')">
+            <span class="key-num">8</span>
+            <span class="key-sub">CHIL SEZ</span>
+          </button>
+          <button class="key-btn" onclick="pressKey('9')">
+            <span class="key-num">9</span>
+            <span class="key-sub">SUNGAM / MENU</span>
+          </button>
+
+          <button class="key-btn" onclick="pressKey('*')">
+            <span class="key-num">*</span>
+            <span class="key-sub">VOL-</span>
+          </button>
+          <button class="key-btn" onclick="pressKey('0')">
+            <span class="key-num">0</span>
+            <span class="key-sub">INBOUND</span>
+          </button>
+          <button class="key-btn" onclick="pressKey('#')">
+            <span class="key-num">#</span>
+            <span class="key-sub">REPEAT</span>
+          </button>
+        </div>
+      </div>
+      <p style="font-size: 12px; color: var(--text-muted); margin-top: 12px; text-align: center;">
+        💡 Click the keypad numbers to send DTMF dual-tones!
+      </p>
+    </div>
+
+    <!-- RIGHT: LIVE TRANSCRIPT & HOTSPOT ROUTES -->
+    <div class="right-panel">
+
+      <!-- Live Voice Subtitles -->
+      <div class="card">
+        <div class="card-title">
+          <span>🔊</span> Live Call Voice Subtitles
+        </div>
+        <div class="speech-box">
+          <div class="sound-wave" id="soundWave">
+            <div class="sound-bar"></div>
+            <div class="sound-bar"></div>
+            <div class="sound-bar"></div>
+            <div class="sound-bar"></div>
+          </div>
+          <div class="speech-text" id="voiceSubtitle">
+            Press the Green <strong>CALL</strong> button on the phone to dial Trava Toll-Free (1800-TRAVA-BUS).
+          </div>
+        </div>
+      </div>
+
+      <!-- Top 10 Coimbatore Hotspot Routes -->
+      <div class="card">
+        <div class="card-title">
+          <span>📍</span> Top 10 Coimbatore Hotspot Routes (Keypad 0 - 9)
+        </div>
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">
+          Pressing any digit during the call dynamically calculates the live road distance and ETA from GPS:
+        </p>
+        <div class="routes-grid" id="routesGrid">
+          <!-- Populated dynamically via JS -->
+        </div>
+      </div>
+
+      <!-- Real Twilio Webhook Integration Guide -->
+      <div class="card">
+        <div class="card-title">
+          <span>⚙️</span> Connect to Real Twilio Phone Number (For Production)
+        </div>
+        <p style="font-size: 13px; color: var(--text-muted);">
+          Our Trava backend generates standard TwiML XML. To make a real phone call from any cellular phone in the world:
+        </p>
+
+        <div class="webhook-box">
+          <div style="font-size: 12px; color: #94A3B8; font-weight: 600;">TWILIO VOICE WEBHOOK URL:</div>
+          <div class="webhook-url">
+            <span id="webhookUrlText">http://localhost:5000/api/v1/ivr/incoming</span>
+            <button class="copy-btn" onclick="copyWebhook()">Copy URL</button>
+          </div>
+          <div style="display: flex; gap: 10px; margin-top: 8px;">
+            <button class="copy-btn" style="background: #059669;" onclick="testRawTwiml()">Test Raw TwiML XML</button>
+            <a href="/bakery" target="_blank" style="color: #38BDF8; font-size: 12px; text-decoration: none; align-self: center;">Open Bakery Verification Portal ↗</a>
+          </div>
+        </div>
+
+        <ol class="step-list">
+          <li>Run <code>ngrok http 5000</code> to get a public HTTPS domain.</li>
+          <li>In Twilio Console &gt; Phone Numbers &gt; Configure Voice &gt; "A CALL COMES IN", paste <code>https://YOUR-NGROK/api/v1/ivr/incoming</code> (HTTP POST).</li>
+          <li>Dial your Twilio number from any basic button phone or smartphone. The live Tamil/English IVR will answer!</li>
+        </ol>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    // Audio Context for DTMF tones & Transit Chime
+    let audioCtx = null;
+    let currentSpeechAudio = null;
+    let callState = 'IDLE'; // IDLE, CONNECTING, AWAITING_LANGUAGE, AWAITING_ROUTE, ANNOUNCING_ETA
+    let selectedLang = 'ta';
+    let hotspotRoutes = [];
+
+    function initAudio() {
+      if (!audioCtx) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioContext();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+
+    // DTMF Frequencies Map for Telephone Keypad
+    const DTMF = {
+      '1': [697, 1209], '2': [697, 1336], '3': [697, 1477],
+      '4': [770, 1209], '5': [770, 1336], '6': [770, 1477],
+      '7': [852, 1209], '8': [852, 1336], '9': [852, 1477],
+      '*': [941, 1209], '0': [941, 1336], '#': [941, 1477]
+    };
+
+    function playDtmfTone(key) {
+      try {
+        initAudio();
+        const freqs = DTMF[key];
+        if (!freqs) return;
+        const now = audioCtx.currentTime;
+
+        const osc1 = audioCtx.createOscillator();
+        const osc2 = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+
+        osc1.frequency.value = freqs[0];
+        osc2.frequency.value = freqs[1];
+        gain.gain.setValueAtTime(0.12, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.16);
+
+        osc1.connect(gain);
+        osc2.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        osc1.start(now);
+        osc2.start(now);
+        osc1.stop(now + 0.16);
+        osc2.stop(now + 0.16);
+      } catch (e) {
+        console.warn('DTMF sound error', e);
+      }
+    }
+
+    function playRingTone() {
+      try {
+        initAudio();
+        const now = audioCtx.currentTime;
+        const osc1 = audioCtx.createOscillator();
+        const osc2 = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+
+        osc1.frequency.value = 400;
+        osc2.frequency.value = 450;
+        gain.gain.setValueAtTime(0.08, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.6);
+
+        osc1.connect(gain);
+        osc2.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        osc1.start(now);
+        osc2.start(now);
+        osc1.stop(now + 0.6);
+        osc2.stop(now + 0.6);
+      } catch (e) {}
+    }
+
+    // Play Voice Audio using Trava TTS Proxy
+    function speakVoice(text, lang = 'ta') {
+      stopVoice();
+      const wave = document.getElementById('soundWave');
+      wave.classList.add('active');
+      document.getElementById('voiceSubtitle').innerHTML = text;
+
+      const encoded = encodeURIComponent(text);
+      const url = `/api/v1/tts?text=${encoded}&lang=${lang}`;
+
+      const audio = new Audio();
+      audio.crossOrigin = 'anonymous';
+      currentSpeechAudio = audio;
+
+      audio.onended = () => {
+        wave.classList.remove('active');
+        currentSpeechAudio = null;
+      };
+
+      audio.onerror = () => {
+        // Fallback to browser synthesis if backend proxy fails
+        if ('speechSynthesis' in window) {
+          const u = new SpeechSynthesisUtterance(text);
+          u.lang = lang === 'ta' ? 'ta-IN' : 'en-IN';
+          u.rate = 0.9;
+          u.pitch = lang === 'ta' ? 1.25 : 0.95;
+          u.onend = () => wave.classList.remove('active');
+          window.speechSynthesis.speak(u);
+        } else {
+          wave.classList.remove('active');
+        }
+      };
+
+      audio.src = url;
+      audio.play().catch(() => audio.onerror());
+    }
+
+    function stopVoice() {
+      if (currentSpeechAudio) {
+        try {
+          currentSpeechAudio.pause();
+          currentSpeechAudio.currentTime = 0;
+        } catch (_) {}
+        currentSpeechAudio = null;
+      }
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+      document.getElementById('soundWave').classList.remove('active');
+    }
+
+    // Load hotspot routes from backend API
+    async function loadHotspotRoutes() {
+      try {
+        const res = await fetch('/api/v1/ivr/routes');
+        const data = await res.json();
+        if (data.success) {
+          hotspotRoutes = data.hotspotRoutes;
+          renderRoutes(data.hotspotRoutes);
+        }
+      } catch (err) {
+        console.error('Failed to load IVR routes:', err);
+      }
+    }
+
+    function renderRoutes(routes) {
+      const grid = document.getElementById('routesGrid');
+      grid.innerHTML = routes.map(r => `
+        <div class="route-item" id="routeCard_${r.key}" onclick="selectRouteByCard('${r.key}')">
+          <div class="route-left">
+            <div class="digit-pill">${r.key}</div>
+            <div class="route-names">
+              <span class="route-en">${r.originEn} ➔ ${r.destinationEn}</span>
+              <span class="route-ta">${r.originTa} ➔ ${r.destinationTa}</span>
+            </div>
+          </div>
+          <div class="eta-pill">~${r.liveEtaMinutes} min</div>
+        </div>
+      `).join('');
+    }
+
+    function selectRouteByCard(key) {
+      if (callState === 'AWAITING_ROUTE') {
+        pressKey(key);
+      } else if (callState === 'IDLE') {
+        alert('Please press the green CALL button first to connect to the IVR!');
+      }
+    }
+
+    // Call state machine
+    async function startCall() {
+      if (callState !== 'IDLE') return;
+      initAudio();
+      playRingTone();
+
+      callState = 'CONNECTING';
+      document.getElementById('lcdStatus').innerText = 'DIALING...';
+      document.getElementById('lcdSub').innerText = '1800-TRAVA-BUS (Toll Free)';
+      document.getElementById('voiceSubtitle').innerText = 'Connecting to Trava IVR gateway...';
+
+      setTimeout(async () => {
+        callState = 'AWAITING_LANGUAGE';
+        document.getElementById('lcdStatus').innerText = 'TRAVA CONNECTED';
+        document.getElementById('lcdSub').innerText = 'Press 1 for Tamil\nPress 2 for English';
+        document.getElementById('lcdActiveDigits').innerText = '0:01';
+
+        try {
+          const res = await fetch('/api/v1/ivr/incoming?format=json');
+          const data = await res.json();
+          const greeting = 'வணக்கம்! டிராவா பேருந்து நேர சேவைக்கு நல்வரவு. தமிழுக்கு 1-ஐ அழுத்தவும். Welcome to Trava. For English, press 2.';
+          speakVoice(greeting, 'ta');
+        } catch (err) {
+          speakVoice('தமிழுக்கு 1-ஐ அழுத்தவும். For English, press 2.', 'ta');
+        }
+      }, 1200);
+    }
+
+    function endCall() {
+      stopVoice();
+      callState = 'IDLE';
+      document.getElementById('lcdStatus').innerText = 'CALL ENDED';
+      document.getElementById('lcdSub').innerText = 'Nandri! Have a safe journey.';
+      document.getElementById('lcdActiveDigits').innerText = '--';
+      document.getElementById('voiceSubtitle').innerText = 'Call terminated. Press CALL to dial again.';
+
+      // Remove any highlighted route
+      document.querySelectorAll('.route-item').forEach(el => el.classList.remove('highlighted'));
+
+      setTimeout(() => {
+        if (callState === 'IDLE') {
+          document.getElementById('lcdStatus').innerText = 'READY TO CALL';
+          document.getElementById('lcdSub').innerText = 'Press GREEN to dial 1800-TRAVA-BUS';
+        }
+      }, 2500);
+    }
+
+    async function pressKey(key) {
+      playDtmfTone(key);
+      const btn = event?.currentTarget;
+      if (btn) {
+        btn.classList.add('pressed');
+        setTimeout(() => btn.classList.remove('pressed'), 120);
+      }
+
+      if (callState === 'IDLE') {
+        document.getElementById('lcdSub').innerText = `Dial: ${key} (Press CALL)`;
+        return;
+      }
+
+      // 1. Language Selection Stage
+      if (callState === 'AWAITING_LANGUAGE') {
+        if (key === '1') {
+          selectedLang = 'ta';
+          document.getElementById('lcdStatus').innerText = 'தமிழ் தேர்வு';
+        } else if (key === '2') {
+          selectedLang = 'en';
+          document.getElementById('lcdStatus').innerText = 'ENGLISH SELECTED';
+        } else {
+          return;
+        }
+
+        callState = 'AWAITING_ROUTE';
+        document.getElementById('lcdSub').innerText = selectedLang === 'ta'
+          ? 'வழித்தட எண்ணை அழுத்தவும் (1-9, 0)'
+          : 'Enter Route Number (1-9, 0)';
+
+        try {
+          const res = await fetch(`/api/v1/ivr/language?Digits=${key}&format=json`, { method: 'POST' });
+          const data = await res.json();
+          speakVoice(data.prompt, selectedLang);
+        } catch (err) {
+          const prompt = selectedLang === 'ta'
+            ? 'காந்திபுரம் முதல் பீளமேடு வரை 1-ஐ அழுத்தவும். ஃபன் மால் முதல் ஹோப்ஸ் வரை 2-ஐ அழுத்தவும்.'
+            : 'Press 1 for Gandhipuram to Peelamedu. Press 2 for Fun Mall to Hopes.';
+          speakVoice(prompt, selectedLang);
+        }
+        return;
+      }
+
+      // 2. Route Selection Stage
+      if (callState === 'AWAITING_ROUTE') {
+        document.querySelectorAll('.route-item').forEach(el => el.classList.remove('highlighted'));
+        const activeCard = document.getElementById(`routeCard_${key}`);
+        if (activeCard) activeCard.classList.add('highlighted');
+
+        document.getElementById('lcdStatus').innerText = `ROUTE ${key} SELECTED`;
+        document.getElementById('lcdSub').innerText = 'Calculating Live GPS ETA...';
+
+        try {
+          const res = await fetch(`/api/v1/ivr/route?Digits=${key}&lang=${selectedLang}&format=json`, { method: 'POST' });
+          const data = await res.json();
+
+          document.getElementById('lcdStatus').innerText = `ETA: ${data.liveEtaMinutes} MINS`;
+          document.getElementById('lcdSub').innerText = `${data.busName} (${data.selectedRoute.origin} ➔ ${data.selectedRoute.destination})`;
+
+          speakVoice(data.announcementText + ' ' + data.followUpPrompt, selectedLang);
+        } catch (err) {
+          speakVoice('பயணிகள் கவனத்திற்கு. பேருந்து இன்னும் 8 நிமிடங்களில் வந்து சேரும்.', selectedLang);
+        }
+        return;
+      }
+    }
+
+    function copyWebhook() {
+      const text = document.getElementById('webhookUrlText').innerText;
+      navigator.clipboard.writeText(text);
+      alert('Copied Twilio Webhook URL to clipboard:\n' + text);
+    }
+
+    function testRawTwiml() {
+      window.open('/api/v1/ivr/incoming', '_blank');
+    }
+
+    // Clock in LCD top bar
+    setInterval(() => {
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      document.getElementById('lcdTime').innerText = timeStr;
+    }, 1000);
+
+    // Initial load
+    loadHotspotRoutes();
+  </script>
+</body>
+</html>

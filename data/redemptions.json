@@ -1,0 +1,22 @@
+[
+  {
+    "id": "red_5fe2b6ba",
+    "couponId": "coup_demo_bake_ananya",
+    "couponCode": "TRAVA-BAKE-ANANYA",
+    "userId": "usr_ananya_cbe_04",
+    "merchantInfo": "Annapoorna Counter #1",
+    "redeemedAt": "2026-10-20T13:15:58.729Z",
+    "createdAt": "2026-10-20T13:15:58.732Z",
+    "updatedAt": "2026-10-20T13:15:58.732Z"
+  },
+  {
+    "id": "red_03f7680d",
+    "couponId": "coup_demo_01",
+    "couponCode": "TRAVA-BAKE-95A1",
+    "userId": "usr_demo_coimbatore_01",
+    "merchantInfo": "Annapoorna Counter #1",
+    "redeemedAt": "2026-10-20T13:21:32.319Z",
+    "createdAt": "2026-10-20T13:21:32.321Z",
+    "updatedAt": "2026-10-20T13:21:32.321Z"
+  }
+]

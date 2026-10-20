@@ -1,0 +1,311 @@
+[
+  {
+    "id": "route_95",
+    "routeNumber": "95",
+    "name": "Gandhipuram ↔ Singanallur (via Peelamedu)",
+    "city": "Coimbatore",
+    "origin": "Gandhipuram",
+    "destination": "Singanallur",
+    "distanceKm": 11.8,
+    "estimatedDurationMinutes": 38,
+    "status": "ACTIVE",
+    "stops": [
+      {
+        "id": "stop_gandhipuram",
+        "name": "Gandhipuram Central Bus Stand",
+        "shortName": "Gandhipuram",
+        "sequence": 1,
+        "latitude": 11.016844,
+        "longitude": 76.967812,
+        "isMajorJunction": true
+      },
+      {
+        "id": "stop_lakshmi_mills",
+        "name": "Lakshmi Mills Junction",
+        "shortName": "Lakshmi Mills",
+        "sequence": 2,
+        "latitude": 11.011832,
+        "longitude": 76.982544,
+        "isMajorJunction": false
+      },
+      {
+        "id": "stop_nava_india",
+        "name": "Nava India Signal",
+        "shortName": "Nava India",
+        "sequence": 3,
+        "latitude": 11.019521,
+        "longitude": 76.999815,
+        "isMajorJunction": false
+      },
+      {
+        "id": "stop_peelamedu",
+        "name": "Peelamedu Bus Stop",
+        "shortName": "Peelamedu",
+        "sequence": 4,
+        "latitude": 11.026033,
+        "longitude": 77.016045,
+        "isMajorJunction": true
+      },
+      {
+        "id": "stop_fun_mall",
+        "name": "Fun Republic Mall Area",
+        "shortName": "Fun Mall Area",
+        "sequence": 5,
+        "latitude": 11.021021,
+        "longitude": 77.028014,
+        "isMajorJunction": false
+      },
+      {
+        "id": "stop_singanallur",
+        "name": "Singanallur Bus Terminus",
+        "shortName": "Singanallur",
+        "sequence": 6,
+        "latitude": 10.998055,
+        "longitude": 77.032011,
+        "isMajorJunction": true
+      }
+    ],
+    "direction": "OUTBOUND",
+    "isDemoRoute": true
+  },
+  {
+    "id": "route_111",
+    "routeNumber": "111",
+    "name": "Gandhipuram ↔ Ukkadam (via Railway Station)",
+    "city": "Coimbatore",
+    "origin": "Gandhipuram",
+    "destination": "Ukkadam",
+    "distanceKm": 6.8,
+    "estimatedDurationMinutes": 24,
+    "status": "ACTIVE",
+    "stops": [
+      {
+        "id": "stop_111_gandhipuram",
+        "name": "Gandhipuram Central Bus Stand",
+        "shortName": "Gandhipuram",
+        "sequence": 1,
+        "latitude": 11.016844,
+        "longitude": 76.967812,
+        "isMajorJunction": true
+      },
+      {
+        "id": "stop_111_railway",
+        "name": "Coimbatore Junction Railway Station",
+        "shortName": "Railway Station",
+        "sequence": 2,
+        "latitude": 10.9983,
+        "longitude": 76.9665,
+        "isMajorJunction": true
+      },
+      {
+        "id": "stop_111_collectorate",
+        "name": "Collectorate / District Court",
+        "shortName": "Collectorate",
+        "sequence": 3,
+        "latitude": 10.9995,
+        "longitude": 76.961,
+        "isMajorJunction": false
+      },
+      {
+        "id": "stop_111_townhall",
+        "name": "Town Hall / Mani Koodu",
+        "shortName": "Town Hall",
+        "sequence": 4,
+        "latitude": 10.993,
+        "longitude": 76.9605,
+        "isMajorJunction": true
+      },
+      {
+        "id": "stop_111_ukkadam",
+        "name": "Ukkadam Bus Terminus",
+        "shortName": "Ukkadam",
+        "sequence": 5,
+        "latitude": 10.9858,
+        "longitude": 76.958,
+        "isMajorJunction": true
+      }
+    ],
+    "direction": "OUTBOUND",
+    "isDemoRoute": true
+  },
+  {
+    "id": "route_20c",
+    "routeNumber": "20C",
+    "name": "Gandhipuram ↔ Saravanampatti (IT Corridor)",
+    "city": "Coimbatore",
+    "origin": "Gandhipuram",
+    "destination": "Saravanampatti",
+    "distanceKm": 12.4,
+    "estimatedDurationMinutes": 36,
+    "status": "ACTIVE",
+    "stops": [
+      {
+        "id": "stop_20c_gandhipuram",
+        "name": "Gandhipuram Central Bus Stand",
+        "shortName": "Gandhipuram",
+        "sequence": 1,
+        "latitude": 11.016844,
+        "longitude": 76.967812,
+        "isMajorJunction": true
+      },
+      {
+        "id": "stop_20c_ganapathy",
+        "name": "Ganapathy Bus Stop",
+        "shortName": "Ganapathy",
+        "sequence": 2,
+        "latitude": 11.036,
+        "longitude": 76.978,
+        "isMajorJunction": true
+      },
+      {
+        "id": "stop_20c_prozone",
+        "name": "Prozone Mall / Sivanandapuram",
+        "shortName": "Prozone Mall",
+        "sequence": 3,
+        "latitude": 11.055,
+        "longitude": 76.992,
+        "isMajorJunction": false
+      },
+      {
+        "id": "stop_20c_chil_sez",
+        "name": "CHIL SEZ / KCT Tech Park",
+        "shortName": "CHIL SEZ",
+        "sequence": 4,
+        "latitude": 11.077,
+        "longitude": 76.998,
+        "isMajorJunction": true
+      },
+      {
+        "id": "stop_20c_saravanampatti",
+        "name": "Saravanampatti Junction",
+        "shortName": "Saravanampatti",
+        "sequence": 5,
+        "latitude": 11.0825,
+        "longitude": 76.9995,
+        "isMajorJunction": true
+      }
+    ],
+    "direction": "OUTBOUND",
+    "isDemoRoute": true
+  },
+  {
+    "id": "route_70",
+    "routeNumber": "70",
+    "name": "Singanallur ↔ Ukkadam (via Sungam)",
+    "city": "Coimbatore",
+    "origin": "Singanallur",
+    "destination": "Ukkadam",
+    "distanceKm": 9.8,
+    "estimatedDurationMinutes": 30,
+    "status": "ACTIVE",
+    "stops": [
+      {
+        "id": "stop_70_singanallur",
+        "name": "Singanallur Bus Terminus",
+        "shortName": "Singanallur",
+        "sequence": 1,
+        "latitude": 10.998055,
+        "longitude": 77.032011,
+        "isMajorJunction": true
+      },
+      {
+        "id": "stop_70_ramanathapuram",
+        "name": "Ramanathapuram Signal",
+        "shortName": "Ramanathapuram",
+        "sequence": 2,
+        "latitude": 10.9935,
+        "longitude": 76.992,
+        "isMajorJunction": true
+      },
+      {
+        "id": "stop_70_sungam",
+        "name": "Sungam Junction",
+        "shortName": "Sungam",
+        "sequence": 3,
+        "latitude": 10.991,
+        "longitude": 76.974,
+        "isMajorJunction": false
+      },
+      {
+        "id": "stop_70_valankulam",
+        "name": "Valankulam Lake Promenade",
+        "shortName": "Valankulam Lake",
+        "sequence": 4,
+        "latitude": 10.988,
+        "longitude": 76.966,
+        "isMajorJunction": false
+      },
+      {
+        "id": "stop_70_ukkadam",
+        "name": "Ukkadam Bus Terminus",
+        "shortName": "Ukkadam",
+        "sequence": 5,
+        "latitude": 10.9858,
+        "longitude": 76.958,
+        "isMajorJunction": true
+      }
+    ],
+    "direction": "OUTBOUND",
+    "isDemoRoute": true
+  },
+  {
+    "id": "route_10a",
+    "routeNumber": "10A",
+    "name": "Gandhipuram ↔ Vadavalli (via RS Puram)",
+    "city": "Coimbatore",
+    "origin": "Gandhipuram",
+    "destination": "Vadavalli",
+    "distanceKm": 9.5,
+    "estimatedDurationMinutes": 30,
+    "status": "ACTIVE",
+    "stops": [
+      {
+        "id": "stop_10a_gandhipuram",
+        "name": "Gandhipuram Central Bus Stand",
+        "shortName": "Gandhipuram",
+        "sequence": 1,
+        "latitude": 11.016844,
+        "longitude": 76.967812,
+        "isMajorJunction": true
+      },
+      {
+        "id": "stop_10a_db_road",
+        "name": "DB Road RS Puram",
+        "shortName": "RS Puram",
+        "sequence": 2,
+        "latitude": 11.008,
+        "longitude": 76.951,
+        "isMajorJunction": true
+      },
+      {
+        "id": "stop_10a_lawley_road",
+        "name": "Lawley Road Junction",
+        "shortName": "Lawley Road",
+        "sequence": 3,
+        "latitude": 11.0125,
+        "longitude": 76.938,
+        "isMajorJunction": false
+      },
+      {
+        "id": "stop_10a_tnau",
+        "name": "TNAU Agricultural University",
+        "shortName": "TNAU",
+        "sequence": 4,
+        "latitude": 11.014,
+        "longitude": 76.931,
+        "isMajorJunction": true
+      },
+      {
+        "id": "stop_10a_vadavalli",
+        "name": "Vadavalli Bus Stand",
+        "shortName": "Vadavalli",
+        "sequence": 5,
+        "latitude": 11.028,
+        "longitude": 76.902,
+        "isMajorJunction": true
+      }
+    ],
+    "direction": "OUTBOUND",
+    "isDemoRoute": true
+  }
+]

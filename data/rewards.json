@@ -1,0 +1,12 @@
+[
+  {
+    "id": "ledg_init_01",
+    "userId": "usr_demo_coimbatore_01",
+    "type": "WELCOME_BONUS",
+    "points": 50,
+    "balanceAfter": 50,
+    "description": "Welcome to Trava Coimbatore Community",
+    "journeyId": null,
+    "createdAt": "2026-10-20T12:47:39.534Z"
+  }
+]
